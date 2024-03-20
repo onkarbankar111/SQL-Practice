@@ -1,3 +1,6 @@
+-- Null cannot be compared to other null means Null =! Null. 
+Null value is not joined with null value
+
 ```SQL
 create table t1
 (

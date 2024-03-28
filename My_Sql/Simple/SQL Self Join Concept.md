@@ -20,7 +20,8 @@ Self Join - Joining a table with itself is called as self join.
 Inner Join - Returns all the rows from both participating tables that satisfy the join condition.
 
 ```SQL
-select e.emp_id, e.emp_name, m.emp_name as manager_name, e.salary, m.salary as manager_salary from emp e 
+select e.emp_id, e.emp_name, m.emp_name as manager_name, e.salary, m.salary as manager_salary
+from emp e 
 inner join emp m 
 on e.manager_id = m.emp_id
 where e.salary > m.salary

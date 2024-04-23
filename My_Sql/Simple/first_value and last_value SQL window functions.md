@@ -1,3 +1,4 @@
+```SQL
 create table employee(
     emp_id int,
     emp_name varchar(20),
@@ -39,3 +40,4 @@ as oldest_emp_each_dept
 FROM employee
 
 --Last value function]
+```

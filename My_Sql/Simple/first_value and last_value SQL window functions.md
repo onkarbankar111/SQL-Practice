@@ -39,5 +39,28 @@ SELECT *, first_value(emp_name) over (partition by dept_id ORDER by emp_age desc
 as oldest_emp_each_dept
 FROM employee
 
+SELECT *, first_value(emp_name) over (partition by dept_id ORDER by emp_age desc) 
+as youngest_emp_each_dept
+FROM employee
+
 --Last value function]
+
+SELECT *, last_value(emp_name) over (ORDER by emp_age) as oldest_emp
+FROM employee
+
+SELECT *, last_value(emp_name) over (partition by dept_id ORDER by emp_age) as oldest_emp
+FROM employee
+
+SELECT *, last_value(emp_name) over (ORDER by emp_age rows BETWEEN current row and unbounded following) 
+as oldest_emp
+FROM employee
+
+SELECT *, last_value(emp_name) over (partition by dept_id ORDER by emp_age 
+                                     rows BETWEEN current row and unbounded following) 
+as oldest_emp
+FROM employee
+--                OR  -> Same result
+SELECT *, first_value(emp_name) over (partition by dept_id ORDER by emp_age) 
+as youngest_emp_each_dept
+FROM employee
 ```

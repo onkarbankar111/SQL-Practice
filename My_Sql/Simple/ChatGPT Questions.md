@@ -53,4 +53,41 @@ from employee e1
 WHERE (e1.dept_id, e1.salary) IN (SELECT dept_id, max(salary)   
                                   FROM employee 
 GROUP by dept_id);
+
+--Q-4] Write a sql to give details of top 5 selling products 
+with cte as (
+SELECT product_name, sum(quantity) as total_quantity, 
+row_number() over (ORDER by sum(quantity) desc) as rn
+from sales GROUP by product_name)
+SELECT product_name, total_quantity from cte WHERE rn <= 5 
+--     OR 
+SELECT product_name, sum(quantity) as total_quantity
+from sales 
+GROUP by product_name
+ORDER by sum(quantity) desc
+LIMIT 5
+
+--Q-5]Write a SQL to find TOP 5 and BOTTOM 5 products by sales 
+
+with cte as (
+SELECT product_name, sum(quantity) as total_quantity, 
+row_number() over (ORDER by sum(quantity) desc) as top_rn,
+row_number() over (ORDER by sum(quantity) Asc) as bottom_rn,
+from sales GROUP by product_name)
+SELECT product_name, total_quantity from cte
+where top_rn <= 5 or bottom_rn <= 5
+order by top_rn, bottom_rn
+--                 OR 
+SELECT product_name, sum(quantity) as total_quantity
+from sales 
+GROUP by product_name
+ORDER by sum(quantity) desc
+LIMIT 5
+UNION
+SELECT product_name, sum(quantity) as total_quantity
+from sales 
+GROUP by product_name
+ORDER by sum(quantity) asc
+LIMIT 5
+
 ```

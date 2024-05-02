@@ -30,4 +30,14 @@ where salary > 6000
 order by half_salary desc
 
 --From -> Where -> Select -> Order by
+
+Select TOP 5 emp_id, emp_name, salary, (salary*1.0)/2 as half_salary 
+from employee 
+where salary > 6000
+order by half_salary desc
+
+-- From -> Where -> Select -> Order by -> Top 5
+
+-- Top 5 and Limit 5 having same meaning. Which command used in both depends on database
+-- In MS SQL database Top command is used.
 ```

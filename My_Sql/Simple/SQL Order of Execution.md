@@ -57,4 +57,22 @@ HAVING sum(salary) > 10000
 order by dep_salary desc
 
 -- From -> Where -> Group by -> Having -> Select -> Order by -> Top 1
+
+CREATE table dept (
+  dep_id int,
+  dep_name varchar(20)
+  )
+insert into dept VALUES (100,'Analytics'),(200,'IT'),(300,'HR'),
+(400,' Test Analytics'),(500,'Operations'),(800,'HR1')
+SELECT * FROM dept
+
+select Top 1 e.dept_id,d.dep_name, sum(e.salary) as dep_salary
+from employee e 
+inner join dept d on e.dept_id = d.dep_id
+where e.salary > 6000 and d.dep_id = 200
+GROUP by e.dept_id, d.dep_name
+HAVING sum(e.salary) > 10000
+order by dep_salary desc
+
+-- From -> Join -> Where -> Group by -> Having -> Select -> Order by -> Top 1
 ```

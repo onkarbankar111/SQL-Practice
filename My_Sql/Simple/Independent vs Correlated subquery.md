@@ -20,7 +20,7 @@ insert into employee values(9,'Mukesh',300,6000,6,51);
 insert into employee values(10,'Rakesh',500,7000,6,50);
 SELECT * FROM employee
 
---Write a SQL to print employee details whose employee salary is more than their department avg salary 
+--Write a SQL to print employee details whose employee salary is more than their department avgerage salary 
 
 SELECT e.*, d.avg_dep_salary
 FROM employee e

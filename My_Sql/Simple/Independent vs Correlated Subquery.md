@@ -1,3 +1,4 @@
+```SQL
 create table employee(
     emp_id int,
     emp_name varchar(20),
@@ -20,3 +21,4 @@ insert into employee values(10,'Rakesh',500,7000,6,50);
 SELECT * FROM employee
 
 --Write a SQL to print employee details whose employee salary is more than their department avg salary
+```

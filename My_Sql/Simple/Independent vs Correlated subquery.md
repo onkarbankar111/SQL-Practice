@@ -33,4 +33,10 @@ group by dept_id) d
 on e.dept_id = d.dept_id
 WHERE e.salary > d.avg_dep_salary
 
+--Corelated Subquery 
+
+SELECT * FROM employee e1
+WHERE salary > (SELECT avg(e2.salary) FROM employee e2 
+                WHERE e1.dept_id = e2.dept_id)
+
 ```

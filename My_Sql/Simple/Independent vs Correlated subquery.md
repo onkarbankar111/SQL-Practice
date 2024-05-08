@@ -22,6 +22,8 @@ SELECT * FROM employee
 
 --Write a SQL to print employee details whose employee salary is more than their department avgerage salary 
 
+--Independent Subquery
+
 SELECT e.*, d.avg_dep_salary
 FROM employee e
 inner join
@@ -30,4 +32,5 @@ from employee
 group by dept_id) d
 on e.dept_id = d.dept_id
 WHERE e.salary > d.avg_dep_salary
+
 ```

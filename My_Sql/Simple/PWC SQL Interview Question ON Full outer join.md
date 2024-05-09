@@ -21,3 +21,37 @@ Expected Output:-
 4	Mismatch
 ![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/2bd38387-ebac-436a-ab34-777936f6188e)
 
+Solution:-    
+
+```SQL
+create table source(id int, name varchar(5))
+insert into source values(1,'A'),(2,'B'),(3,'C'),(4,'D')
+create table target(id int, name varchar(5))
+insert into target values(1,'A'),(2,'B'),(4,'X'),(5,'F')
+
+SELECT * FROM source
+SELECT * FROM target
+
+--Method-1]
+--Step-1]
+select s.*, t.* FROM source s
+full outer join target t 
+on s.id = t.id
+WHERE s.name != t.name
+
+--Null is not comparable so this is not expected output
+
+--Step-2]
+select s.*, t.* FROM source s
+full outer join target t 
+on s.id = t.id
+WHERE s.name is null or t.name is null or s.name != t.name
+
+--Step-3] 
+select coalesce(s.id, t.id) as id,
+case when t.name is null then 'New in source' when s.name is null then 'New in target' 
+else 'Mismatch' end as Comment FROM source s
+full outer join target t 
+on s.id = t.id
+WHERE s.name is null or t.name is null or s.name != t.name
+```

@@ -48,7 +48,7 @@ on s.id = t.id
 WHERE s.name is null or t.name is null or s.name != t.name
 
 --Step-3] 
-select coalesce(s.id, t.id) as id,
+select coalesce(s.id, t.id) as id, --s.name, t.name,
 case when t.name is null then 'New in source' when s.name is null then 'New in target' 
 else 'Mismatch' end as Comment FROM source s
 full outer join target t 

@@ -1,4 +1,4 @@
-``SQL
+```SQL
 SELECT cast('2000-01-01' as date) as cal_date,
 datepart(year,'2000-01-01') as cal_year,
 datepart(dayofyear,'2000-01-01') as cal_year_day,

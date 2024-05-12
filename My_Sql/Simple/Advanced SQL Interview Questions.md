@@ -96,4 +96,46 @@ FROM cte2
 --2021 - 200 - 300   (100+200)
 --2022 - 300 - 600   (100+200+300)
 --2023 - 400 - 1000  (100+200+300+400)
+--Q] running/cumulative sales year wise 
+--Concept:- 
+-- year  sales   running sum
+--2020 - 100 - 100 
+--2021 - 200 - 300   (100+200)
+--2022 - 300 - 600   (100+200+300)
+--2023 - 400 - 1000  (100+200+300+400)
+
+WITH cte as (
+SELECT year(order_date) as year_order, sum(sales) as sales
+from orders 
+GROUP by year(order_date)
+--ORDER by year(order_date)
+) 
+select *, 
+sum(sales) over(order by year_order) as cumulative_sales
+from cte
+--Above cumulative sum concept applicable only for unique sale values otherwise showing wrong output
+
+--Q] category wise cumulative sum 
+WITH cte as (
+SELECT category, year(order_date) as year_order, sum(sales) as sales
+from orders 
+GROUP by category, year(order_date)
+--ORDER by category, year(order_date)
+) 
+select *, 
+sum(sales) over(partition by category order by year_order) as cumulative_sales
+from cte
+--Above cumulative sum concept applicable only for unique sale values otherwise showing wrong output 
+
+--Q] rolling 3 month sale (previous 2 months and current month)
+WITH cte as (
+SELECT year(order_date) as year_order,month(order_date) as month_order_date, sum(sales) as sales
+from orders 
+GROUP by year(order_date),month(order_date)
+--ORDER by year(order_date),month(order_date)
+) 
+select *, 
+sum(sales) over(order by year_order, month_order_date rows between 2 preceding and current row) as cumulative_sales
+from cte
+-- In this case no matter sales value is unique or not.
 ```

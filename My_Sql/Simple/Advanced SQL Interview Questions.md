@@ -49,4 +49,51 @@ SELECT * from (SELECT *,
 row_number() over (partition by category ORDER BY sales desc) as rn 
 FROM cte) a 
 WHERE rn <= 5
+
+--LEAD / LAG Function
+
+-- Q] Year over year growth/products with current year comparison than previous year sale 
+--Concept :- 
+--2020 - 100 - 0% growth
+--2021 - 200 - 100% growth
+--2022 - 300 - 50% growth
+
+WITH cte as (
+SELECT year(order_date) as year_order, sum(sales) as sales
+from orders 
+GROUP by year(order_date)
+--ORDER by year(order_date)
+)
+, cte2 as (
+SELECT *,
+lag(sales,1,sales) over (order by year_order) as previous_year_sales
+FROM cte
+)
+SELECT *,
+(sales-previous_year_sales)*100/previous_year_sales as yoy 
+FROM cte2 
+
+-- Q] Year over year growth in each category 
+WITH cte as (
+SELECT category, year(order_date) as year_order, sum(sales) as sales
+from orders 
+GROUP by category, year(order_date)
+--ORDER by category, year(order_date)
+)
+, cte2 as (
+SELECT *,
+lag(sales,1,sales) over (partition by category order by year_order) as previous_year_sales
+FROM cte
+)
+SELECT *,
+(sales-previous_year_sales)*100/previous_year_sales as yoy 
+FROM cte2 
+
+--Q] running/cumulative sales year wise 
+--Concept:- 
+-- year  sales   running sum
+--2020 - 100 - 100 
+--2021 - 200 - 300   (100+200)
+--2022 - 300 - 600   (100+200+300)
+--2023 - 400 - 1000  (100+200+300+400)
 ```

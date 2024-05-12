@@ -85,23 +85,23 @@ WHERE x.rnk < 4
 --LEAD() & LAG() 
 --Q] Fetch the query to display if the salary of employee is higher, lower or equal to previous emplyeee 
 SELECT * ,
-lag(salary) over (partition by dept_name ORDER by emp_id) as previous_emp_salary
+lag(salary) over (partition by dept_name ORDER by emp_id) as previous_emp_salary,
 lag(salary) over (partition by dept_name ORDER by emp_id) as next_emp_salary
 FROM employee
 
 SELECT * ,
-lag(salary,2,0) over (partition by dept_name ORDER by emp_id) as previous_emp_salary
+lag(salary,2,0) over (partition by dept_name ORDER by emp_id) as previous_emp_salary,
 --Second previous salary
 lag(salary,2,0) over (partition by dept_name ORDER by emp_id) as next_emp_salary
 --second next salary
 FROM employee
 
 
-SELECT e.* ,
+SELECT * ,
 lag(salary) over (partition by dept_name ORDER by emp_id) as previous_emp_salary,
-case when e.salary > lag(salary) over (partition by dept_name ORDER by emp_id) then 'Higher than previous employee',
-case when e.salary < lag(salary) over (partition by dept_name ORDER by emp_id) then 'Lower than previous employee',
-case when e.salary = lag(salary) over (partition by dept_name ORDER by emp_id) then 'Same as previous employee'
+case when salary > lag(salary) over(partition by dept_name ORDER by emp_id) then 'Higher than previous employee'
+     when salary < lag(salary) over(partition by dept_name ORDER by emp_id) then 'Lower than previous employee'
+     when salary = lag(salary) over(partition by dept_name ORDER by emp_id) then 'Same as previous employee'
 end as salary_range
-FROM employee e
+FROM employee
 ```

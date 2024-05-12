@@ -63,4 +63,13 @@ lag(salary,2,0) over (partition by dept_name ORDER by emp_id) as previous_emp_sa
 lag(salary,2,0) over (partition by dept_name ORDER by emp_id) as next_emp_salary
 --second next salary
 FROM employee
+
+
+SELECT e.* ,
+lag(salary) over (partition by dept_name ORDER by emp_id) as previous_emp_salary,
+case when e.salary > lag(salary) over (partition by dept_name ORDER by emp_id) then 'Higher than previous employee',
+case when e.salary < lag(salary) over (partition by dept_name ORDER by emp_id) then 'Lower than previous employee',
+case when e.salary = lag(salary) over (partition by dept_name ORDER by emp_id) then 'Same as previous employee'
+end as salary_range
+FROM employee e
 ```

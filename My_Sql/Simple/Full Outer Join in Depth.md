@@ -1,5 +1,5 @@
 ```SQL
---Type-1]
+--Type-1] 
 create table orders_usa
 (
 order_id int,

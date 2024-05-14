@@ -25,4 +25,11 @@ count(case when skill in ('sql','python') then skill else null end) as sp_skill
 FROM students
 GROUP by student_id
 HAVING COUNT(*) =2 and count(case when skill in ('sql','python') then skill else null end) =2
+
+--Method-3]
+SELECT student_id, COUNT(*) as total_skill,
+count(case when skill not in ('sql','python') then skill else null end) as spn_skill
+FROM students
+GROUP by student_id
+HAVING COUNT(*) =2 and count(case when skill not in ('sql','python') then skill else null end) = 0
 ```

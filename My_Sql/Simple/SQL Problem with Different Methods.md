@@ -39,4 +39,13 @@ FROM students
 WHERE student_id not in (SELECT student_id FROM students WHERE skill not in ('sql','python'))
 GROUP by student_id
 HAVING COUNT(*) = 2
+
+--Method-5] Using except 
+SELECT student_id
+FROM students
+GROUP by student_id
+HAVING COUNT(*) = 2
+except
+SELECT student_id FROM students 
+WHERE skill not in ('sql','python')
 ```

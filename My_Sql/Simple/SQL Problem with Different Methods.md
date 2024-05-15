@@ -60,4 +60,14 @@ on s.student_id = p.student_id
 left join other o
 on o.student_id = s.student_id
 WHERE o.student_id is null
+
+--Method-7]
+SELECT s.*, p.*, o.*
+from students s 
+inner join students p 
+on s.student_id = p.student_id
+left join students o
+on o.student_id = s.student_id and o.skill NOT IN ('sql','python')
+WHERE s.skill = 'sql' and p.skill = 'python' and o.student_id is null
+
 ```

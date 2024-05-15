@@ -48,4 +48,16 @@ HAVING COUNT(*) = 2
 except
 SELECT student_id FROM students 
 WHERE skill not in ('sql','python')
+
+--Method-6]
+with sql as (SELECT * FROM students where skill = 'sql')
+, python as (SELECT * FROM students where skill = 'python')
+, other AS (SELECT * FROM students where skill NOT IN ('sql','python'))
+SELECT s.*, p.*, o.*
+from sql s 
+inner join python p 
+on s.student_id = p.student_id
+left join other o
+on o.student_id = s.student_id
+WHERE o.student_id is null
 ```

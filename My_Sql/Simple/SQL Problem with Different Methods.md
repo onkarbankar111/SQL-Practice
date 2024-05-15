@@ -80,4 +80,11 @@ SELECT student_id FROM python
 except
 SELECT student_id FROM other
 
+--Method-9] 
+with cte as (
+SELECT student_id,
+SUM(case when skill in ('sql','python') then 1 else 5 end) as sp_skill
+FROM students
+GROUP by student_id) 
+SELECT * FROM cte where sp_skill = 2
 ```

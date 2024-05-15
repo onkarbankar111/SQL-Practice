@@ -70,4 +70,14 @@ left join students o
 on o.student_id = s.student_id and o.skill NOT IN ('sql','python')
 WHERE s.skill = 'sql' and p.skill = 'python' and o.student_id is null
 
+--Method-8]
+with sql as (SELECT * FROM students where skill = 'sql')
+, python as (SELECT * FROM students where skill = 'python')
+, other AS (SELECT * FROM students where skill NOT IN ('sql','python'))
+SELECT student_id FROM sql 
+intersect 
+SELECT student_id FROM python 
+except
+SELECT student_id FROM other
+
 ```

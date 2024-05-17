@@ -56,7 +56,8 @@ from product;
 --Frame clause is used to fetch the last value data as we want.
 select *,
 last_value(product_name) over(partition by product_category order by price desc
-                             range BETWEEN unbounded preceding and unbounded following ) as least_exp_product
+                             range BETWEEN unbounded preceding and unbounded following )
+as least_exp_product
 from product;
 --This is expected output. 
 --Frame clause is nothing but range BETWEEN unbounded preceding and unbounded following
@@ -75,4 +76,14 @@ last_value(product_name) over(partition by product_category order by price desc
                              rows BETWEEN unbounded preceding and current row ) as least_exp_product
 from product
 where product_category = 'phone';
+
+
+-- Alternate way to write SQL query using Window functions
+select *,
+first_value(product_name) over w as most_exp_product,
+last_value(product_name) over w as least_exp_product    
+from product
+WHERE product_category ='Phone'
+window w as (partition by product_category order by price desc
+            range between unbounded preceding and unbounded following);
 ```

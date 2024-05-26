@@ -116,4 +116,24 @@ from product
 window w as (partition by product_category order by price desc
             range between unbounded preceding and unbounded following);
 --If fifth value of most exp product is not exist then showing null value of entire product category.
+
+- NTILE
+-- Write a query to segregate all the expensive phones, mid range phones and the cheaper phones.
+--Step - 1]
+SELECT *,
+ntile(3) over (ORDER by price DESC) as buckets
+FROM product 
+WHERE product_category = 'Phone'
+
+--Step-2]
+select x.product_name, 
+case when x.buckets = 1 then 'Expensive Phones'
+     when x.buckets = 2 then 'Mid Range Phones'
+     when x.buckets = 3 then 'Cheaper Phones' END as Phone_Category
+from (
+    select *,
+    ntile(3) over (order by price desc) as buckets
+    from product
+    where product_category = 'Phone') x;
+
 ```

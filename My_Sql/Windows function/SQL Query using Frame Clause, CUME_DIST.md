@@ -152,4 +152,15 @@ where x.cume_distribution <= 0.3;
 --consider the cume_distribution value in last duplicate price value row because of using order by price
 
 
+-- PERCENT_RANK (relative rank of the current row / Percentage Ranking)
+/* Formula = Current Row No - 1 / Total no of rows - 1 */
+
+-- Query to identify how much percentage more expensive is "Galaxy Z Fold 3" when compared to all products.
+select product_name, per
+from (
+    select *,
+    percent_rank() over(order by price) ,
+    round(percent_rank() over(order by price)::numeric * 100, 2) as per
+    from product) x
+where x.product_name='Galaxy Z Fold 3';
 ```

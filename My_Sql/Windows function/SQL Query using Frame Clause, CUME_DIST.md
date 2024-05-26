@@ -136,4 +136,20 @@ from (
     from product
     where product_category = 'Phone') x;
 
+-- CUME_DIST (cumulative distribution) ; 
+/*  Formula = Current Row no (or Row No with value same as current row) / Total no of rows */
+
+-- Query to fetch all products which are constituting the first 30% 
+-- of the data in products table based on price.
+select product_name, cume_dist_percetage
+from (
+    select *,
+    cume_dist() over (order by price desc) as cume_distribution,
+    round(cume_dist() over (order by price desc) :: (numeric * 100),2)||'%' as cume_dist_percetage
+    from product) x
+where x.cume_distribution <= 0.3;
+-- In this case if duplicate prices available in rows then 
+--consider the cume_distribution value in last duplicate price value row because of using order by price
+
+
 ```

@@ -86,4 +86,34 @@ from product
 WHERE product_category ='Phone'
 window w as (partition by product_category order by price desc
             range between unbounded preceding and unbounded following);
+
+-- NTH_VALUE 
+
+-- Write query to display the Second most expensive product under each category.
+select *,
+first_value(product_name) over w as most_exp_product,
+last_value(product_name) over w as least_exp_product,
+nth_value(product_name, 2) over w as second_most_exp_product
+from product
+window w as (partition by product_category order by price desc
+            range between unbounded preceding and unbounded following);
+            
+select *,
+first_value(product_name) over w as most_exp_product,
+last_value(product_name) over w as least_exp_product,
+nth_value(product_name, 2) over w as second_most_exp_product
+from product
+window w as (partition by product_category order by price desc
+           -- range between unbounded preceding and unbounded following);
+-- In this case this query executed row by row because of range function is not used. 
+--In this case we want to find second most exp valuse that means first row of nth valuse showing null in each category.
+-- Write query to display the Second most expensive product under each category.
+select *,
+first_value(product_name) over w as most_exp_product,
+last_value(product_name) over w as least_exp_product,
+nth_value(product_name, 5) over w as fifth_most_exp_product
+from product
+window w as (partition by product_category order by price desc
+            range between unbounded preceding and unbounded following);
+--If fifth value of most exp product is not exist then showing null value of entire product category.
 ```

@@ -1,3 +1,4 @@
+--Detailed in windows function folder
 ```SQL
 CREATE TABLE product
 ( 

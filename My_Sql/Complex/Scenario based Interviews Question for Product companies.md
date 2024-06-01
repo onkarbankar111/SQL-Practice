@@ -38,5 +38,48 @@ FROM entries
 GROUP by name, floor) 
 SELECT name, floor as most_visited_floor FROM floor_visit WHERE rn=1
 
+--Step-2]
+SELECT name, count(floor) as total_visits, 
+string_agg(resources, ',') as resources_used
+FROM entries 
+GROUP by name 
 
+--Step-3]
+WITH total_visit as (
+SELECT name, count(floor) as total_visits, 
+string_agg(resources, ',') as resources_used
+FROM entries 
+GROUP by name)
+,floor_visit as (
+SELECT name, floor, COUNT(floor) as no_of_floor_visit,
+rank() over (partition by name order by COUNT(floor) desc) as rn
+FROM entries
+GROUP by name, floor) 
+SELECT fv.name, tv.total_visits,fv.no_of_floor_visit as most_visited_floor
+,tv.resources_used
+FROM floor_visit as fv
+inner join total_visit tv
+on fv.name = tv.name
+where rn=1
+
+--Step-4]
+WITH distinct_resources as (SELECT DISTINCT name, resources from entries)
+,agg_resources as (SELECT name, string_agg(resources,',')as resources_used 
+ FROM distinct_resources GROUP by name )
+,total_visit as (
+SELECT name, count(floor) as total_visits, 
+string_agg(resources, ',') as resources_used
+FROM entries 
+GROUP by name)
+,floor_visit as (
+SELECT name, floor, COUNT(floor) as no_of_floor_visit,
+rank() over (partition by name order by COUNT(floor) desc) as rn
+FROM entries
+GROUP by name, floor) 
+SELECT fv.name, tv.total_visits,fv.no_of_floor_visit as most_visited_floor
+,ar.resources_used
+FROM floor_visit as fv
+inner join total_visit tv on fv.name = tv.name
+inner join agg_resources ar on fv.name = ar.name
+where rn=1
 ```

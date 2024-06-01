@@ -36,6 +36,7 @@ SELECT name, floor, COUNT(floor) as no_of_floor_visit,
 rank() over (partition by name order by COUNT(floor) desc) as rn
 FROM entries
 GROUP by name, floor) 
-SELECT * FROM floor_visit WHERE rn=1
+SELECT name, floor as most_visited_floor FROM floor_visit WHERE rn=1
+
 
 ```

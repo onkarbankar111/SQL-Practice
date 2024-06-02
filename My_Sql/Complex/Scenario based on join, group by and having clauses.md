@@ -1,12 +1,12 @@
-Input:-			
-PersonID	Name	Email	Score
-1	Alice	alice2018@hotmail.com	86
-2	Bob	bob2018@hotmail.com	11
-3	Davis	davis2018@hotmail.com	27
-4	Tara	tara2018@hotmail.com	45
-5	John	john2018@hotmail.com	63
+Input:-		
+PersonID	Name	Score
+1	Alice	86
+2	Bob	11
+3	Davis	27
+4	Tara	45
+5	John	63
 
-![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/d7edb0ab-ef8e-4b9b-927a-c68747e86f12)
+![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/72364453-d068-406e-83bb-4cd795d5ba5e)
 
 Input:-	
 PersonID	FriendID
@@ -19,11 +19,12 @@ PersonID	FriendID
 4	3
 4	5
 
-![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/6167f555-f83d-4996-9d6b-62b6703d55de)
+![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/ff8f9637-5409-4d88-b10b-1d05ba71a37f)
 
 Output:-			
 person_id	name	no_of_friends	total_friend_score
 2	Bob	2	115
 4	Tara	3	101
-![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/e187aa27-f858-4019-9e2f-488dd656aea7)
+
+![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/2616040c-6e93-4204-8456-cee57243b6e9)
 

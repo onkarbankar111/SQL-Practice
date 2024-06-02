@@ -28,3 +28,23 @@ person_id	name	no_of_friends	total_friend_score
 
 ![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/2616040c-6e93-4204-8456-cee57243b6e9)
 
+```SQL
+--Solution]
+CREATE table person(
+  PersonID int,
+  name varchar(20),
+  Score int
+  )
+INSERT into person VALUES (1,'Alice',86), 
+  (2,'Bob',11),(3,'Davis',27), 
+  (4,'Tara',45),( 5,'John',63)
+CREATE table friend (
+  PersonID int,
+  FriendID int
+)
+INSERT into friend values (1,2),(1,3),(2,1),(2,3),
+(3,5),(4,2),(4,3),(4,5)
+SELECT * FROM person
+SELECT * FROM friend
+
+```

@@ -28,6 +28,9 @@ person_id	name	no_of_friends	total_friend_score
 
 ![image](https://github.com/onkarbankar111/SQL-Practice/assets/164195447/2616040c-6e93-4204-8456-cee57243b6e9)
 
+--Write a query to find person_id, name, no_of_friends, sum of marks of person
+who have friends with total score greater than 100
+
 ```SQL
 --Solution]
 CREATE table person(
